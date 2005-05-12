@@ -9,7 +9,7 @@ Release:	1
 License:	GPL
 Group:		Development/Languages
 Source0:	http://dl.sourceforge.net/json/%{name}-%{version}.tar.gz
-# Source0-md5:	b50b578115c1f3c593e14df0be84d4f5
+# Source0-md5:	bdd95a1806ac08c965d225d0d7b1c49f
 Source1:	setup.rb
 URL:		http://sourceforge.net/projects/json/
 BuildRequires:	ruby
