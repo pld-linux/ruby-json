@@ -2,15 +2,16 @@
 %define ruby_rubylibdir %(ruby -r rbconfig -e 'print Config::CONFIG["rubylibdir"]')
 %define	ruby_ridir	%(ruby -r rbconfig -e 'include Config; print File.join(CONFIG["datadir"], "ri", CONFIG["ruby_version"], "system")')
 Summary:	JSON library for Ruby
+Summary(pl):	Biblioteka JSON dla jêzyka Ruby
 Name:		ruby-json
 Version:	1.1
 Release:	1
 License:	GPL
 Group:		Development/Languages
-Source0:	%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/json/%{name}-%{version}.tar.gz
 # Source0-md5:	b50b578115c1f3c593e14df0be84d4f5
 Source1:	setup.rb
-URL:		http://sourceforge.net/projects/json
+URL:		http://sourceforge.net/projects/json/
 BuildRequires:	ruby
 BuildRequires:	ruby-devel
 Requires:	ruby
@@ -18,6 +19,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 JSON library for Ruby.
+
+%description -l pl
+Biblioteka JSON dla jêzyka Ruby.
 
 %prep
 %setup -q -n %{name}
@@ -49,7 +53,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc rdoc/*
-%{ruby_rubylibdir}/json/
+%{ruby_rubylibdir}/json
 # Does not merge well with others.
 %{ruby_ridir}/JSON
 %{ruby_ridir}/*/*json*
