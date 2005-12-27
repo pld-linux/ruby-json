@@ -10,7 +10,6 @@ Source0:	http://dl.sourceforge.net/json/%{name}-%{version}.tar.gz
 Source1:	setup.rb
 URL:		http://sourceforge.net/projects/json/
 BuildRequires:	rpmbuild(macros) >= 1.263
-BuildRequires:	ruby-modules
 BuildRequires:	ruby-devel
 Requires:	ruby-modules
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
