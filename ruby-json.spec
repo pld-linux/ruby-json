@@ -9,9 +9,9 @@ Source0:	http://dl.sourceforge.net/json/%{name}-%{version}.tar.gz
 # Source0-md5:	bdd95a1806ac08c965d225d0d7b1c49f
 Source1:	setup.rb
 URL:		http://sourceforge.net/projects/json/
-BuildRequires:	rpmbuild(macros) >= 1.263
+BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	ruby-devel
-Requires:	ruby-modules
+%ruby_mod_ver_requires_eq
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
