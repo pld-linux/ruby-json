@@ -1,5 +1,5 @@
 Summary:	JSON library for Ruby
-Summary(pl.UTF-8):   Biblioteka JSON dla języka Ruby
+Summary(pl.UTF-8):	Biblioteka JSON dla języka Ruby
 Name:		ruby-json
 Version:	1.1
 Release:	2
