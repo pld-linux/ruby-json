@@ -1,5 +1,5 @@
 Summary:	JSON library for Ruby
-Summary(pl):	Biblioteka JSON dla jêzyka Ruby
+Summary(pl.UTF-8):   Biblioteka JSON dla jÄ™zyka Ruby
 Name:		ruby-json
 Version:	1.1
 Release:	2
@@ -17,8 +17,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 JSON library for Ruby.
 
-%description -l pl
-Biblioteka JSON dla jêzyka Ruby.
+%description -l pl.UTF-8
+Biblioteka JSON dla jÄ™zyka Ruby.
 
 %prep
 %setup -q -n %{name}
