@@ -1,4 +1,3 @@
-# TODO: Name vs spec filename
 Summary:	JSON library for Ruby
 Summary(pl.UTF-8):	Biblioteka JSON dla języka Ruby
 Name:		ruby-json
@@ -28,6 +27,10 @@ Biblioteka JSON dla języka Ruby.
 install %{_datadir}/setup.rb .
 
 %build
+mv ext/json/ext/generator ext/json/generator
+mv ext/json/ext/parser ext/json/parser
+touch ext/json/{parser,generator}/MANIFEST
+
 ruby setup.rb config \
 	--rbdir=%{ruby_rubylibdir} \
 	--sodir=%{ruby_archdir}
@@ -51,6 +54,9 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc rdoc/*
-%attr(755,root,root) %{_bindir}/*.rb
+%attr(755,root,root) %{_bindir}/*
 %{ruby_rubylibdir}/json
 %{ruby_rubylibdir}/json.rb
+%dir %{ruby_archdir}/json
+%attr(755,root,root) %{ruby_archdir}/json/generator.so
+%attr(755,root,root) %{ruby_archdir}/json/parser.so
