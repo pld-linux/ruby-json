@@ -1,12 +1,12 @@
 Summary:	JSON library for Ruby
 Summary(pl.UTF-8):	Biblioteka JSON dla języka Ruby
 Name:		ruby-json
-Version:	1.1.1
+Version:	1.1.9
 Release:	1
 License:	GPL
 Group:		Development/Languages
 Source0:	http://gems.rubyforge.org/gems/json-%{version}.gem
-# Source0-md5:	3d19df591c55c2ebf9a1e5441fe50bcb
+# Source0-md5:	b29ddb63ba1c0d3a9ecdaf944df61157
 URL:		http://json.rubyforge.org/
 BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	ruby-devel
