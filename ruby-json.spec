@@ -1,16 +1,17 @@
+%define pkgname json
 Summary:	JSON library for Ruby
 Summary(pl.UTF-8):	Biblioteka JSON dla języka Ruby
-Name:		ruby-json
+Name:		ruby-%{pkgname}
 Version:	1.1.9
 Release:	1
 License:	GPL
 Group:		Development/Languages
-Source0:	http://gems.rubyforge.org/gems/json-%{version}.gem
+Source0:	http://gems.rubyforge.org/gems/%{pkgname}-%{version}.gem
 # Source0-md5:	b29ddb63ba1c0d3a9ecdaf944df61157
 URL:		http://json.rubyforge.org/
 BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	ruby-devel
-BuildRequires:	setup.rb = 3.4.1
+BuildRequires:	setup.rb >= 3.4.1
 %{?ruby_mod_ver_requires_eq}
 Obsoletes:	ruby-json-rubyforge
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
