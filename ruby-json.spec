@@ -9,8 +9,8 @@ Group:		Development/Languages
 Source0:	http://gems.rubyforge.org/gems/%{pkgname}-%{version}.gem
 # Source0-md5:	10a923c1c031c55d2bac861664431301
 URL:		http://json.rubyforge.org/
-BuildRequires:	rpmbuild(macros) >= 1.277
-BuildRequires:	ruby-devel
+BuildRequires:	rpm-rubyprov
+BuildRequires:	rpmbuild(macros) >= 1.656
 BuildRequires:	setup.rb >= 3.4.1
 %{?ruby_mod_ver_requires_eq}
 Obsoletes:	ruby-json-rubyforge
@@ -47,34 +47,36 @@ ri documentation for %{pkgname}.
 Dokumentacji w formacie ri dla %{pkgname}.
 
 %prep
-%setup -q -c 
-%{__tar} xf %{SOURCE0} -O data.tar.gz | %{__tar} xz
-find -newer README  -o -print | xargs touch --reference %{SOURCE0}
-
-install %{_datadir}/setup.rb .
+%setup -q
+cp -p %{_datadir}/setup.rb .
 
 %build
 mv ext/json/ext/generator ext/json/generator
 mv ext/json/ext/parser ext/json/parser
 touch ext/json/{parser,generator}/MANIFEST
 
-ruby setup.rb config \
+%{__ruby} setup.rb config \
 	--rbdir=%{ruby_rubylibdir} \
 	--sodir=%{ruby_archdir}
 
-ruby setup.rb setup
+%{__ruby} setup.rb setup
 
 rdoc -o rdoc lib
 rdoc --ri -o ri lib/*
 rm ri/created.rid
+rm ri/cache.ri
+# system libs
 rm -r ri/{Class,Date,DateTime,Enumerable,Exception,Kernel,Object} \
 	ri/{Range,Regexp,Struct,Symbol,Time}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{ruby_rubylibdir},%{ruby_ridir},%{ruby_rdocdir}}
+%{__ruby} setup.rb install \
+	--prefix=$RPM_BUILD_ROOT
 
-ruby setup.rb install --prefix=$RPM_BUILD_ROOT
+# huh?
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/{example.json,index.html,prototype.js}
 
 cp -a ri/* $RPM_BUILD_ROOT%{ruby_ridir}
 cp -a rdoc $RPM_BUILD_ROOT%{ruby_rdocdir}/%{name}-%{version}
@@ -85,7 +87,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES README TODO
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/edit_json.rb
+%attr(755,root,root) %{_bindir}/prettify_json.rb
 %{ruby_rubylibdir}/json
 %{ruby_rubylibdir}/json.rb
 %dir %{ruby_archdir}/json
