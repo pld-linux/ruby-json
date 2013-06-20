@@ -11,7 +11,7 @@ Release:	1
 License:	Ruby
 Group:		Development/Languages
 Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
-# Source0-md5:	10a923c1c031c55d2bac861664431301
+# Source0-md5:	9084ee2e853f55d956d043cba46e25fc
 URL:		http://flori.github.com/json
 BuildRequires:	rpm-rubyprov
 BuildRequires:	rpmbuild(macros) >= 1.656
