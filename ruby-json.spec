@@ -7,14 +7,14 @@ Summary:	JSON library for Ruby
 Summary(pl.UTF-8):	Biblioteka JSON dla języka Ruby
 Name:		ruby-%{pkgname}
 Version:	1.7.7
-Release:	1
+Release:	2
 License:	Ruby
 Group:		Development/Languages
 Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
 # Source0-md5:	9084ee2e853f55d956d043cba46e25fc
 URL:		http://flori.github.com/json
 BuildRequires:	rpm-rubyprov
-BuildRequires:	rpmbuild(macros) >= 1.656
+BuildRequires:	rpmbuild(macros) >= 1.665
 BuildRequires:	ruby-devel
 %if %{with tests}
 BuildRequires:	ruby-permutation
@@ -59,6 +59,8 @@ Dokumentacji w formacie ri dla %{pkgname}.
 cp -p %{_datadir}/setup.rb .
 
 %build
+%__gem_helper spec
+
 %{__ruby} setup.rb config \
 	--rbdir=%{ruby_vendorlibdir} \
 	--sodir=%{ruby_vendorarchdir}
@@ -75,9 +77,11 @@ rm -r ri/{Class,Date,DateTime,Exception,Kernel} \
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_ridir},%{ruby_rdocdir}}
+install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_specdir},%{ruby_ridir},%{ruby_rdocdir}}
 %{__ruby} setup.rb install \
 	--prefix=$RPM_BUILD_ROOT
+
+cp -p %{pkgname}-%{version}.gemspec $RPM_BUILD_ROOT%{ruby_specdir}
 
 rmdir $RPM_BUILD_ROOT%{ruby_vendorlibdir}/json/ext
 
@@ -99,6 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{ruby_vendorarchdir}/json/ext
 %attr(755,root,root) %{ruby_vendorarchdir}/json/ext/generator.so
 %attr(755,root,root) %{ruby_vendorarchdir}/json/ext/parser.so
+%{ruby_specdir}/%{pkgname}-%{version}.gemspec
 
 %files rdoc
 %defattr(644,root,root,755)
