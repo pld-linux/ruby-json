@@ -7,7 +7,7 @@ Summary:	JSON library for Ruby
 Summary(pl.UTF-8):	Biblioteka JSON dla języka Ruby
 Name:		ruby-%{pkgname}
 Version:	1.8.1
-Release:	0.1
+Release:	1
 License:	Ruby
 Group:		Development/Languages
 Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
