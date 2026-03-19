@@ -6,12 +6,12 @@
 Summary:	JSON library for Ruby
 Summary(pl.UTF-8):	Biblioteka JSON dla języka Ruby
 Name:		ruby-%{pkgname}
-Version:	1.8.1
-Release:	2
+Version:	2.19.1
+Release:	1
 License:	Ruby
 Group:		Development/Languages
 Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
-# Source0-md5:	d53582f76c34719aa815b0336beeb0a9
+# Source0-md5:	4d06472db72db151fe1732560f0b29bf
 URL:		http://flori.github.com/json
 BuildRequires:	rpm-rubyprov
 BuildRequires:	rpmbuild(macros) >= 1.665
@@ -57,48 +57,34 @@ ri documentation for %{pkgname}.
 Dokumentacji w formacie ri dla %{pkgname}.
 
 %prep
-%setup -q
-cp -p %{_datadir}/setup.rb .
+%setup -q -n %{pkgname}-%{version}
 
 %build
 %__gem_helper spec
 
-%{__ruby} setup.rb config \
-	--rbdir=%{ruby_vendorlibdir} \
-	--sodir=%{ruby_vendorarchdir}
-
-%{__ruby} setup.rb setup
-
-rdoc -o rdoc lib
-rdoc --ri -o ri lib/*
-rm ri/created.rid
-rm ri/cache.ri
-# system libs
-rm -r ri/{Class,Date,DateTime,Exception,Kernel} \
-	ri/{Range,Regexp,Struct,Symbol,Time,BigDecimal,Complex,OpenStruct,Rational}
+cd ext/json/ext/generator
+%{__ruby} extconf.rb
+%{__make}
+cd ../parser
+%{__ruby} extconf.rb
+%{__make}
+cd ../../../..
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_specdir},%{ruby_ridir},%{ruby_rdocdir}}
-%{__ruby} setup.rb install \
-	--prefix=$RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_vendorarchdir}/json/ext,%{ruby_specdir}}
+cp -a lib/* $RPM_BUILD_ROOT%{ruby_vendorlibdir}
+install -p ext/json/ext/generator/generator.so $RPM_BUILD_ROOT%{ruby_vendorarchdir}/json/ext
+install -p ext/json/ext/parser/parser.so $RPM_BUILD_ROOT%{ruby_vendorarchdir}/json/ext
 
 cp -p %{pkgname}-%{version}.gemspec $RPM_BUILD_ROOT%{ruby_specdir}
-
-rmdir $RPM_BUILD_ROOT%{ruby_vendorlibdir}/json/ext
-
-# huh?
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/{example.json,index.html,prototype.js}
-
-cp -a ri/* $RPM_BUILD_ROOT%{ruby_ridir}
-cp -a rdoc $RPM_BUILD_ROOT%{ruby_rdocdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGES README* TODO
+%doc CHANGES.md README.md COPYING BSDL LEGAL
 %{ruby_vendorlibdir}/json
 %{ruby_vendorlibdir}/json.rb
 %dir %{ruby_vendorarchdir}/json
@@ -107,10 +93,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{ruby_vendorarchdir}/json/ext/parser.so
 %{ruby_specdir}/%{pkgname}-%{version}.gemspec
 
-%files rdoc
-%defattr(644,root,root,755)
-%{ruby_rdocdir}/%{name}-%{version}
+#%files rdoc
+#%defattr(644,root,root,755)
+#%{ruby_rdocdir}/%{name}-%{version}
 
-%files ri
-%defattr(644,root,root,755)
-%{ruby_ridir}/JSON
+#%files ri
+#%defattr(644,root,root,755)
+#%{ruby_ridir}/JSON
