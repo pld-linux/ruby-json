@@ -6,13 +6,13 @@
 Summary:	JSON library for Ruby
 Summary(pl.UTF-8):	Biblioteka JSON dla języka Ruby
 Name:		ruby-%{pkgname}
-Version:	2.19.2
+Version:	3.1.0
 Release:	1
 License:	Ruby
 Group:		Development/Languages
-Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
-# Source0-md5:	8b15a88cd3af9b3ac5882c0dfaf3f840
-URL:		http://flori.github.com/json
+Source0:	https://rubygems.org/downloads/%{pkgname}-%{version}.gem
+# Source0-md5:	d0f49c5fb8c9ed46077b7b4757a57ebb
+URL:		https://github.com/ruby/json
 BuildRequires:	rpm-rubyprov
 BuildRequires:	rpmbuild(macros) >= 1.665
 BuildRequires:	ruby-devel
